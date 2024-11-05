@@ -7,8 +7,6 @@ import com.jobhunter24.queryingapi.service.QueryService;
 import com.jobhunter24.queryingapi.service.SparqlService;
 import com.jobhunter24.queryingapi.tools.QueryBuilder;
 import com.jobhunter24.queryingapi.validators.SparqlQueryValidator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -25,37 +23,40 @@ public class FirstIterationTddTests {
                 .object("test").build();
 
         Query query = Query.builder()
-                .query("query example")
+                .query("PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?class ?label ?description WHERE {    ?class a owl:Class .    OPTIONAL { ?class rdfs:label ?label }\n    OPTIONAL { ?class rdfs:comment ?description }\n} \nLIMIT 25")
                 .relations(Arrays.asList(relation,relation)).build();
         //Act
         String response = qb.buildQuery(query);
 
         //Assert
         Assertions.assertNotNull(response);
-        Assertions.assertTrue(SparqlQueryValidator.isValidSparqlQuery(response));
+        Assertions.assertTrue(SparqlQueryValidator.isValidSparqlQuery(response).success);
     }
 
     @Test
     public void ExecuteQuery_QueryAsString_Response() {
         //Arrange
         SparqlService sparqlService = new SparqlService();
-        QueryService qs = new QueryService(sparqlService);
-        String query = "query example";
+        SparqlQueryValidator sparqlQueryValidator = new SparqlQueryValidator();
+        QueryService qs = new QueryService(sparqlService, sparqlQueryValidator);
+        String query = "PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?class ?label ?description WHERE {    ?class a owl:Class .    OPTIONAL { ?class rdfs:label ?label }\n    OPTIONAL { ?class rdfs:comment ?description }\n} \nLIMIT 25";
 
         //Act
         Response response = qs.executeQuery(query);
+        System.out.println(response.message);
 
         //Assert
-        Assertions.assertNotNull(response);
+
         Assertions.assertTrue(response.success);
+        Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.message);
+
     }
 
     @Test
-    public void LoggingTest() {
-        Logger logger = LogManager.getLogger("Testing");
-        logger.info("Testing From QueryingAPI");
+    public void QueryValidator_QueryAsString_BaseResponse() {
+        String query = "PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> SELECT DISTINCT ?class ?label ?description WHERE {    ?class a owl:Class .    OPTIONAL { ?class rdfs:label ?label }\n    OPTIONAL { ?class rdfs:comment ?description }\n} \nLIMIT 25";
 
-        Assertions.assertTrue(true);
+        Assertions.assertTrue(SparqlQueryValidator.isValidSparqlQuery(query).success);
     }
 }

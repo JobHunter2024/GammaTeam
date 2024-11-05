@@ -1,15 +1,24 @@
 package com.jobhunter24.queryingapi.validators;
 
+import com.jobhunter24.queryingapi.api.model.BaseResponse;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SparqlQueryValidator {
-    public static boolean isValidSparqlQuery(String sparqlQuery) {
+    public static BaseResponse isValidSparqlQuery(String sparqlQuery) {
         try {
             Query query = QueryFactory.create(sparqlQuery);
         } catch (Exception e) {
-            return false;
+            BaseResponse br = BaseResponse.builder()
+                    .message(e.getMessage())
+                    .success(false).build();
+            return br;
         }
-        return true;
+        BaseResponse br = BaseResponse.builder()
+                .message("Query successfully validated")
+                .success(true).build();
+        return br;
     }
 }
