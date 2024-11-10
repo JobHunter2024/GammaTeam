@@ -1,5 +1,5 @@
 from flask import Flask
-from testare.logTools import log_aspect, exception_handling_aspect
+from LogTools.logTools import log_aspect, exception_handling_aspect
 
 app = Flask(__name__)
 
