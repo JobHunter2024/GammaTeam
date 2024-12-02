@@ -14,8 +14,8 @@ import java.util.*;
 
 @Service
 public class SparqlService {
-    Dotenv dotenv = Dotenv.load();
-    private final String sparqlEndpointUrl = dotenv.get("SPARQL_ENDPOINT"); // Replace with your SPARQL endpoint URL
+   // Dotenv dotenv = Dotenv.load();
+    private final String sparqlEndpointUrl = "http://localhost:3030/data/"; // Replace with your SPARQL endpoint URL
 
     private static final Logger logger = (Logger) LoggerFactory.getLogger(QueryingApiApplication.class);
 
