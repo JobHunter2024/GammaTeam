@@ -11,13 +11,19 @@ formatter = ResponseFormatter(NAMESPACE)
 
 @log_aspect
 @exception_handling_aspect
-@main_bp.route('/api/query', methods=['GET'])
+@main_bp.route('/api/query', methods=['POST'])
 def forward_data():
-    skill = request.args.get('skill')
-    if not skill:
-        return jsonify({'error': 'Skill parameter is required'}), 400
+    data = request.get_json()
+    if not data or 'iri' not in data:
+        return jsonify({'error': 'IRI parameter is required in request body'}), 400
 
-    response = call_external_api(EXTERNAL_SPARQL_API, NAMESPACE, skill)
+    iri = data['iri']
+
+    response = call_external_api(EXTERNAL_SPARQL_API, NAMESPACE, iri)
+    print(response)
+
     formatted_response = formatter.format_response(response)
+    print(formatted_response)
 
     return jsonify(formatted_response)
+
