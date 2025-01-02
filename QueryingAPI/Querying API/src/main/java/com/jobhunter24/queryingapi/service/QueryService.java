@@ -2,6 +2,7 @@ package com.jobhunter24.queryingapi.service;
 
 import ch.qos.logback.classic.Logger;
 import com.jobhunter24.queryingapi.QueryingApiApplication;
+import com.jobhunter24.queryingapi.api.model.DataObject;
 import com.jobhunter24.queryingapi.api.model.Response;
 import com.jobhunter24.queryingapi.validators.SparqlQueryValidator;
 import org.slf4j.LoggerFactory;
@@ -53,5 +54,10 @@ public class QueryService implements IQueryService {
             logger.error(e.getMessage(), e);
         }
         return response;
+    }
+
+    @Override
+    public List<Map<String, Object>> generateAndExecuteSparqlQuery(DataObject query) {
+        return List.of(Map.of("value", query.subject));
     }
 }

@@ -1,11 +1,12 @@
 package com.jobhunter24.queryingapi.api.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import java.util.List;
+import lombok.Data;
 
 @Builder
+@AllArgsConstructor
+@Data
 public class Query {
-    public List<Relation> relations;
     public String query;
 }

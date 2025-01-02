@@ -5,7 +5,9 @@ import java.util.Map;
 
 public interface ISparqlService {
     public List<Map<String,Object>> getEntities();
-    public List<Map<String, Object>> getRelationsOf(String entityClass);
-    public void getRelationsBetween();
     public List<Map<String, Object>> getPropertiesOf(String entityClass);
+    public List<Map<String, Object>> getInstancesOf(String entityClass);
+    public Map<String, Map<String, String>> getLabelsAndClasses(List<String> entityClasses);
+    public List<Map<String, Object>> getSubclassesOf(String entityClass);
+    public List<Map<String, Object>> getFilteredSubclassInstancesOf(List<String> entityClasses, String searchTerm);
 }

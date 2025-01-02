@@ -1,4 +1,4 @@
-package com.jobhunter24.standardqueriesapi.api.config;
+package com.jobhunter24.queryingapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

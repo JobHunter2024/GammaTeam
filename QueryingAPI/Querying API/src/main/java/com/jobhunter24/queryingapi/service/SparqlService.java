@@ -2,20 +2,23 @@ package com.jobhunter24.queryingapi.service;
 
 import ch.qos.logback.classic.Logger;
 import com.jobhunter24.queryingapi.QueryingApiApplication;
-import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.sparql.exec.http.QueryExecutionHTTP;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
-public class SparqlService {
-    Dotenv dotenv = Dotenv.load();
-    private final String sparqlEndpointUrl = dotenv.get("SPARQL_ENDPOINT"); // Replace with your SPARQL endpoint URL
+public class SparqlService implements ISparqlService {
+    @Value("${SPARQL_ENDPOINT}")
+    private String sparqlEndpointUrl; // Replace with your SPARQL endpoint URL
 
     private static final Logger logger = (Logger) LoggerFactory.getLogger(QueryingApiApplication.class);
 

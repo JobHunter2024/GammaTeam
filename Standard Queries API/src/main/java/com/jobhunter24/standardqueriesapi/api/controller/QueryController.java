@@ -1,8 +1,11 @@
 package com.jobhunter24.standardqueriesapi.api.controller;
 
 import ch.qos.logback.classic.Logger;
-import com.jobhunter24.standardqueriesapi.api.dto.properties.EntityPropertyQueryModel;
+import com.jobhunter24.standardqueriesapi.api.dto.label.EntityLabelsQueryModel;
+import com.jobhunter24.standardqueriesapi.api.dto.property.EntityPropertyQueryModel;
+import com.jobhunter24.standardqueriesapi.api.dto.subclass.FilteredEntitySubclassQuery;
 import com.jobhunter24.standardqueriesapi.api.service.ISparqlService;
+import jakarta.validation.Valid;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,23 +24,44 @@ public class QueryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Map<String,Object>>> query() {
-        try {
-            List<Map<String,Object>> response = sparqlService.getEntities();
-            return ResponseEntity.ok().body(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<List<Map<String,Object>>> queryEntities() {
+        List<Map<String,Object>> response = sparqlService.getEntities();
+
+        return ResponseEntity.ok().body(response);
     }
 
-    @PostMapping("/properties")
-    public ResponseEntity<List<Map<String,Object>>> queryProperties(@RequestBody EntityPropertyQueryModel queryModel) {
-        try {
-            logger.info("EntityClass " + queryModel.entityClass);
-            List<Map<String,Object>> response = sparqlService.getPropertiesOf(queryModel.entityClass);
-            return ResponseEntity.ok().body(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    @PostMapping("properties")
+    public ResponseEntity<List<Map<String,Object>>> queryProperties(@Valid @RequestBody EntityPropertyQueryModel queryModel) {
+        List<Map<String,Object>> response = sparqlService.getPropertiesOf(queryModel.entityClass);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("instances")
+    public ResponseEntity<List<Map<String,Object>>> getInstancesOf(@Valid @RequestBody EntityPropertyQueryModel queryModel) {
+        List<Map<String,Object>> response = sparqlService.getInstancesOf(queryModel.entityClass);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/labels")
+    public ResponseEntity<Map<String, Map<String, String>>> getLabelsAndClasses(@Valid @RequestBody EntityLabelsQueryModel queryModel) {
+        Map<String, Map<String, String>> response = sparqlService.getLabelsAndClasses(queryModel.entityClass);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/subclasses")
+    public ResponseEntity<List<Map<String,Object>>> getSubclassesOf(@Valid @RequestBody EntityPropertyQueryModel queryModel) {
+        List<Map<String,Object>> response = sparqlService.getSubclassesOf(queryModel.entityClass);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/subclasses/filter")
+    public ResponseEntity<List<Map<String,Object>>> getFilteredSubclassInstancesOf(@Valid @RequestBody FilteredEntitySubclassQuery queryModel) {
+        List<Map<String,Object>> response = sparqlService.getFilteredSubclassInstancesOf(queryModel.entityClasses, queryModel.searchTerm);
+
+        return ResponseEntity.ok().body(response);
     }
 }
