@@ -10,5 +10,4 @@ public class QueryingApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(QueryingApiApplication.class, args);
     }
-
 }
