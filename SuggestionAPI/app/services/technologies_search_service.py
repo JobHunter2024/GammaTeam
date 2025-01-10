@@ -1,25 +1,19 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 from sentence_transformers import SentenceTransformer, util
+from app.exceptions.exception_handler import NotFoundException, InternalServerErrorException
+from app.utils.query_builder import QueryBuilder
+from decouple import config
 
-WIKIDATA_ENDPOINT = "https://query.wikidata.org/sparql"
-MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+WIKIDATA_ENDPOINT = config('WIKIDATA_ENDPOINT')
+MODEL_NAME = config('MODEL_NAME')
 model = SentenceTransformer(MODEL_NAME)
 
 
 def wikidata_query(technology_name: str):
     technology_name_formatted = technology_name.strip().lower().capitalize()
 
-    programming_language_query = f"""
-    SELECT DISTINCT ?entity
-    WHERE {{
-      ?entity rdfs:label|skos:altLabel "{technology_name_formatted}"@en .
-      ?entity wdt:P31/wdt:P279* wd:Q9143 .  # Programming Language
-    }}
-    LIMIT 1
-    """
-
     sparql = SPARQLWrapper(WIKIDATA_ENDPOINT)
-    sparql.setQuery(programming_language_query)
+    sparql.setQuery(QueryBuilder.programming_language_query(technology_name_formatted))
     sparql.setReturnFormat(JSON)
 
     try:
@@ -38,33 +32,7 @@ def wikidata_query(technology_name: str):
     except Exception as e:
         print(f"Warning: Failed to query programming language. Defaulting to software. {str(e)}")
 
-    return False, f"""
-    SELECT DISTINCT
-      ?entity ?entityLabel ?type ?typeLabel
-      ?programmingLanguage ?programmingLanguageLabel
-    WHERE {{
-      ?entity rdfs:label|skos:altLabel ?entityLabel .
-      ?entity wdt:P31 ?type .
-      ?entity wdt:P277 ?programmingLanguage .
-
-      FILTER(
-        CONTAINS(LCASE(?entityLabel), LCASE("{technology_name}")) &&
-        LANG(?entityLabel) = "en"
-      )
-
-      VALUES ?type {{
-        wd:Q271680   # Software Framework
-        wd:Q1172284  # Software Library
-        wd:Q188860   # Software Library
-        wd:Q7397     # Software
-        wd:Q1639024  # Mathematical Software
-        wd:Q1330336  # Web Framework
-      }}
-
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-    }}
-    LIMIT 30
-    """
+    return False, QueryBuilder.general_technology_query(technology_name)
 
 
 def process_results(results):
@@ -101,7 +69,6 @@ def pick_language_for_entity(entity, job_description):
 
     job_lower = job_description.lower()
     possible_langs = list(entity["languages"])
-
 
     job_embedding = model.encode(job_description, convert_to_tensor=True)
     langs_embedding = model.encode(possible_langs, convert_to_tensor=True)
@@ -162,16 +129,17 @@ def classify_technology(technology_name, job_offer_text):
         try:
             results = sparql.query().convert()
         except Exception as e:
-            return {"error": f"Failed to result WikiData: {str(e)}"}
+            raise InternalServerErrorException(f"Failed to result WikiData: {str(e)}")
+            # return {"error": f"Failed to result WikiData: {str(e)}"}
 
         entities = process_results(results)
 
         if not entities:
-            return {"error": "No relevant technology found"}
+            raise NotFoundException("No relevant technology found")
 
         best_entity, _ = select_best_entity(entities, job_offer_text, technology_name)
         if best_entity is None:
-            return {"error": "No best entity could be determined"}
+            raise NotFoundException("No relevant technology found")
 
         chosen_lang = pick_language_for_entity(best_entity, job_offer_text)
 

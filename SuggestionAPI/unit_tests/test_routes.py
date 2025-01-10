@@ -1,7 +1,7 @@
 import pytest
 from flask import Flask
 from app.routes.routes import main_bp
-from app.services.services import call_external_api
+from app.services.sparql_service import call_external_api
 
 
 @pytest.fixture

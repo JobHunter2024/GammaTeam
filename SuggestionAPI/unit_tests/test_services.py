@@ -1,5 +1,5 @@
 import requests
-from app.services.services import call_external_api, generate_sparql_query
+from app.services.sparql_service import call_external_api, generate_sparql_query
 
 
 def test_call_external_api_success(mocker):
