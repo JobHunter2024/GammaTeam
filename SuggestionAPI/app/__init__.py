@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flasgger import Swagger
-from app.routes.routes import main_bp
+from app.routes.sparql_query_controller import sparql_query_bp
+from app.routes.technology_controller import technology_bp
 from app.exceptions.exception_handler import CustomException
 from flask_cors import CORS
 
@@ -37,7 +38,8 @@ def create_app():
 
     Swagger(app, config=swagger_config, template=swagger_template)
 
-    app.register_blueprint(main_bp)
+    app.register_blueprint(sparql_query_bp)
+    app.register_blueprint(technology_bp)
 
     @app.errorhandler(CustomException)
     def handle_custom_exception(error):

@@ -1,3 +1,6 @@
+from app.dto.query_response_dto import QueryResponseDTO
+
+
 class ResponseFormatter:
     def __init__(self, namespace):
         self.namespace = namespace
@@ -14,10 +17,11 @@ class ResponseFormatter:
     def format_response(self, api_response):
         formatted_results = []
         for result in api_response.get("resultList", []):
-            formatted_results.append({
-                "relatedSkill": self.simplify_uri(result.get("node", "")),
-                "relation": self.simplify_uri(result.get("relation", "")),
-                "intermediateRelatedSkill": self.simplify_uri(result.get("intermediateNode", "")),
-                "intermediateRelation": self.simplify_uri(result.get("relationIntermediate", ""))
-            })
+            query_response = QueryResponseDTO(
+                relatedSkill=self.simplify_uri(result.get("node", "")),
+                relation=self.simplify_uri(result.get("relation", "")),
+                intermediateRelatedSkill=self.simplify_uri(result.get("intermediateNode", "")),
+                intermediateRelation=self.simplify_uri(result.get("relationIntermediate", ""))
+            )
+            formatted_results.append(query_response.__dict__)
         return formatted_results

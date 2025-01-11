@@ -2,6 +2,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from sentence_transformers import SentenceTransformer, util
 from app.exceptions.exception_handler import NotFoundException, InternalServerErrorException
 from app.utils.query_builder import QueryBuilder
+from app.dto.technology_dto import TechnologyDTO
 from decouple import config
 
 WIKIDATA_ENDPOINT = config('WIKIDATA_ENDPOINT')
@@ -63,7 +64,6 @@ def process_results(results):
 
 
 def pick_language_for_entity(entity, job_description):
-    print("entity", entity)
     if not entity["languages"]:
         return "N/A"
 
@@ -92,9 +92,6 @@ def select_best_entity(entities, job_description, tech_name):
 
     if not candidate_texts:
         return None, None
-
-    for e in entities:
-        print(e)
 
     embeddings = model.encode([job_description] + candidate_texts, convert_to_tensor=True)
     job_embedding = embeddings[0]
@@ -130,7 +127,6 @@ def classify_technology(technology_name, job_offer_text):
             results = sparql.query().convert()
         except Exception as e:
             raise InternalServerErrorException(f"Failed to result WikiData: {str(e)}")
-            # return {"error": f"Failed to result WikiData: {str(e)}"}
 
         entities = process_results(results)
 
@@ -142,10 +138,19 @@ def classify_technology(technology_name, job_offer_text):
             raise NotFoundException("No relevant technology found")
 
         chosen_lang = pick_language_for_entity(best_entity, job_offer_text)
+        technology = TechnologyDTO(
+            best_entity["entityLabel"],
+            chosen_lang,
+            classify_type(best_entity["typeLabel"]),
+            best_entity["wikidataUrl"]
+        )
+        return technology.__dict__
 
-        return {
-            "entityLabel": best_entity["entityLabel"],
-            "programmedIn": chosen_lang,
-            "typeOfTechnology": classify_type(best_entity["typeLabel"]),
-            "wikidataUrl": best_entity["wikidataUrl"]
-        }
+
+def classify_technologies(technologies, job_offer_text):
+    technologies_list = []
+    for technology in technologies:
+        classifed_technology = classify_technology(technology, job_offer_text)
+        technologies_list.append(classifed_technology)
+
+    return technologies_list
