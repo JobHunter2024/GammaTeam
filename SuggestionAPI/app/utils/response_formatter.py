@@ -21,7 +21,8 @@ class ResponseFormatter:
                 relatedSkill=self.simplify_uri(result.get("node", "")),
                 relation=self.simplify_uri(result.get("relation", "")),
                 intermediateRelatedSkill=self.simplify_uri(result.get("intermediateNode", "")),
-                intermediateRelation=self.simplify_uri(result.get("relationIntermediate", ""))
+                intermediateRelation=self.simplify_uri(result.get("relationIntermediate", "")),
+                resourceUri = result.get("node", "")
             )
             formatted_results.append(query_response.__dict__)
         return formatted_results

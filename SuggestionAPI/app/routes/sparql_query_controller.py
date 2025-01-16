@@ -8,7 +8,7 @@ from app.exceptions.exception_handler import BadRequestException, InternalServer
 
 sparql_query_bp = Blueprint('sparql_query', __name__)
 
-EXTERNAL_SPARQL_API = "http://localhost:8888/query"
+EXTERNAL_SPARQL_API = "http://localhost:8887/api/v1/query"
 NAMESPACE = "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#"
 
 formatter = ResponseFormatter(NAMESPACE)
