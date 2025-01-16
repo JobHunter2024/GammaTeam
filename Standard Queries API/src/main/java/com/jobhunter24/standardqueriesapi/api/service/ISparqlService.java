@@ -10,4 +10,5 @@ public interface ISparqlService {
     public Map<String, Map<String, String>> getLabelsAndClasses(List<String> entityClasses);
     public List<Map<String, Object>> getSubclassesOf(String entityClass);
     public List<Map<String, Object>> getFilteredSubclassInstancesOf(List<String> entityClasses, String searchTerm);
+    public List<Map<String, Object>> getAllDataOf(String entityClass);
 }

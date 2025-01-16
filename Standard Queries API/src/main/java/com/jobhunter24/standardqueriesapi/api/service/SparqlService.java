@@ -16,6 +16,13 @@ import java.util.*;
 public class SparqlService implements ISparqlService {
     @Value("${SPARQL_ENDPOINT}")
     private String sparqlEndpointUrl;
+
+    @Value("${FUSEKI_USERNAME}")
+    private String username;
+
+    @Value("${FUSEKI_PASSWORD}")
+    private String password;
+
     private final QueryLoader queryLoader;
     private static final Logger logger = (Logger) LoggerFactory.getLogger(SparqlService.class);
 
@@ -25,7 +32,12 @@ public class SparqlService implements ISparqlService {
 
     @Override
     public List<Map<String, Object>> getEntities() {
-        try (QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, queryLoader.getQuery("getEntities"))) {
+        try (QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(queryLoader.getQuery("getEntities"))
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build()
+        ) {
             // Execute the query and obtain results
             ResultSet results = qexec.execSelect();
             List<Map<String, Object>> resultList = new ArrayList<>();
@@ -61,7 +73,12 @@ public class SparqlService implements ISparqlService {
 
     @Override
     public List<Map<String, Object>> getPropertiesOf(String entityClass) {
-        try (QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, queryLoader.getQuery("getEntityProperties").replace("<<var>>", "<"+entityClass+">"))) {
+        try (
+                QueryExecution qexec = QueryExecutionHTTP.create()
+                        .endpoint(sparqlEndpointUrl)
+                        .query(queryLoader.getQuery("getEntityProperties").replace("<<var>>", "<"+entityClass+">"))
+                        .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                        .build()) {
             // Execute the query and obtain results
             ResultSet results = qexec.execSelect();
             List<Map<String, Object>> resultList = new ArrayList<>();
@@ -98,7 +115,11 @@ public class SparqlService implements ISparqlService {
 
     @Override
     public List<Map<String, Object>> getInstancesOf(String entityClass) {
-        try (QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, queryLoader.getQuery("getInstancesOf").replace("<<var>>", "<"+entityClass+">"))) {
+        try (QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(queryLoader.getQuery("getInstancesOf").replace("<<var>>", "<"+entityClass+">"))
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build()) {
             // Execute the query and obtain results
             ResultSet results = qexec.execSelect();
             List<Map<String, Object>> resultList = new ArrayList<>();
@@ -146,7 +167,11 @@ public class SparqlService implements ISparqlService {
 
         logger.info(query);
 
-        try (QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, query)) {
+        try (QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(query)
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build()) {
             // Execute the query and obtain results
             ResultSet results = qexec.execSelect();
 
@@ -184,7 +209,11 @@ public class SparqlService implements ISparqlService {
 
     @Override
     public List<Map<String, Object>> getSubclassesOf(String entityClass) {
-        try (QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, queryLoader.getQuery("getSubclassesOf").replace("<<var>>", "<"+entityClass+">"))) {
+        try (QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(queryLoader.getQuery("getSubclassesOf").replace("<<var>>", "<"+entityClass+">"))
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build()) {
             // Execute the query and obtain results
             ResultSet results = qexec.execSelect();
             List<Map<String, Object>> resultList = new ArrayList<>();
@@ -226,9 +255,13 @@ public class SparqlService implements ISparqlService {
         }
 
 
-        try (QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, queryLoader.getQuery("getFilteredSubclassInstancesOf")
-                .replace("<<entityClasses>>", entityFilter.toString())
-                .replace("<<search>>","\""+searchTerm+"\""))) {
+        try (QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(queryLoader.getQuery("getFilteredSubclassInstancesOf")
+                        .replace("<<entityClasses>>", entityFilter.toString())
+                        .replace("<<search>>","\""+searchTerm+"\""))
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build()) {
             // Execute the query and obtain results
             ResultSet results = qexec.execSelect();
             List<Map<String, Object>> resultList = new ArrayList<>();
@@ -259,5 +292,49 @@ public class SparqlService implements ISparqlService {
             logger.error(e.getMessage(), e);
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllDataOf(String entityClass) {
+        try (QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(queryLoader.getQuery("getAllData").replace("<<var>>", "<"+entityClass+">"))
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build()) {
+            // Execute the query and obtain results
+            ResultSet results = qexec.execSelect();
+            List<Map<String, Object>> resultList = new ArrayList<>();
+
+            if (results.hasNext()) {
+                // Iterate over each result
+                while (results.hasNext()) {
+                    QuerySolution solution = results.next();
+                    Map<String, Object> rowMap = new HashMap<>();
+
+                    // Dynamically add each variable and its value to the map
+                    for (String var : results.getResultVars()) {
+                        if (solution.contains(var)) {
+                            rowMap.put(var, solution.get(var).toString());
+                        } else {
+                            rowMap.put(var, null);  // Handle optional values gracefully
+                        }
+                    }
+
+                    // Add the row to the results list
+                    resultList.add(rowMap);
+                }
+            } else {
+                System.out.println("No results found.");
+            }
+            return resultList;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return Collections.emptyList();
+        }
+    }
+
+    private String encodeCredentials(String username, String password) {
+        String credentials = username + ":" + password;
+        return Base64.getEncoder().encodeToString(credentials.getBytes());
     }
 }

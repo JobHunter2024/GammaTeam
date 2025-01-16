@@ -37,6 +37,13 @@ public class QueryController {
         return ResponseEntity.ok().body(response);
     }
 
+    @PostMapping("data")
+    public ResponseEntity<List<Map<String,Object>>> getAllDataOf(@Valid @RequestBody EntityPropertyQueryModel queryModel) {
+        List<Map<String,Object>> response = sparqlService.getAllDataOf(queryModel.entityClass);
+
+        return ResponseEntity.ok().body(response);
+    }
+
     @PostMapping("instances")
     public ResponseEntity<List<Map<String,Object>>> getInstancesOf(@Valid @RequestBody EntityPropertyQueryModel queryModel) {
         List<Map<String,Object>> response = sparqlService.getInstancesOf(queryModel.entityClass);
