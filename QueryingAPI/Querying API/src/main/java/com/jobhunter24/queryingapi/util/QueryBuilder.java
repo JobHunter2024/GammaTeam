@@ -20,13 +20,14 @@ public class QueryBuilder {
         // Base subject
         String subject = dataObject.getSubject();
         List<String> instances = dataObject.getInstances();
-        Map<String, String> dataProperties = dataObject.getDataProperties();
+        Map<String, Object> dataProperties = dataObject.getDataProperties();
         Map<String, Object> objectProperties = dataObject.getObjectProperties();
 
         // Add required PREFIX declarations
         sparql.append("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ");
         sparql.append("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> ");
         sparql.append("PREFIX ont: <http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#> ");
+        sparql.append("PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> "); // Add this line
         sparql.append("SELECT ?instance ?label ?description WHERE { ");
 
         // Add rdf:type and rdfs:subClassOf* relationship
@@ -45,12 +46,31 @@ public class QueryBuilder {
 
         // Add filters for data properties
         if (dataProperties != null) {
-            for (Map.Entry<String, String> entry : dataProperties.entrySet()) {
+            for (Map.Entry<String, Object> entry : dataProperties.entrySet()) {
                 String property = entry.getKey();
-                String value = entry.getValue();
-                sparql.append("  OPTIONAL { ?instance <").append(property).append("> ?value . } ");
-                if (value != null && !value.isEmpty()) {
-                    sparql.append("  FILTER(CONTAINS(LCASE(?value), LCASE(\"").append(value).append("\"))) . ");
+                Object value = entry.getValue();
+
+                if (property.equals("http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#datePosted")) {
+                    if (value instanceof Map) {
+                        Map<String, String> dateRange = (Map<String, String>) value;
+                        String startDate = dateRange.get("startDate");
+                        String endDate = dateRange.get("endDate");
+
+                        sparql.append("  OPTIONAL { ?instance <").append(property).append("> ?datePosted . } ");
+                        if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+                            startDate = ensureDateFormat(startDate);
+                            endDate = ensureDateFormat(endDate);
+
+                            sparql.append("  FILTER(?datePosted >= \"").append(startDate).append("\"^^xsd:dateTime ");
+                            sparql.append("  && ?datePosted <= \"").append(endDate).append("\"^^xsd:dateTime) . ");
+                        }
+                    }
+                } else if (value instanceof String) {
+                    String stringValue = (String) value;
+                    sparql.append("  OPTIONAL { ?instance <").append(property).append("> ?value . } ");
+                    if (stringValue != null && !stringValue.isEmpty()) {
+                        sparql.append("  FILTER(CONTAINS(LCASE(?value), LCASE(\"").append(stringValue).append("\"))) . ");
+                    }
                 }
             }
         }
@@ -150,5 +170,27 @@ public class QueryBuilder {
 
     public String buildQuery(DataObject dataObject) {
         return generateSparqlQuery(dataObject);
+    }
+
+    private Map<String, String> parseDateRange(String rawValue) {
+        // Implement JSON parsing logic, e.g., using Jackson or Gson
+        return new HashMap<>(); // Placeholder: return parsed startDate and endDate
+    }
+
+    // Helper function to ensure the date format includes time (with seconds)
+    private String ensureDateFormat(String date) {
+        if (date != null && !date.isEmpty()) {
+            // If the date does not contain time, append "T00:00:00"
+            if (date.length() == 10) { // Only YYYY-MM-DD, no time
+                return date + "T00:00:00";
+            }
+            // If the date has time but no seconds, add ":00" to complete it
+            if (date.length() == 16) { // YYYY-MM-DDTHH:mm (missing seconds)
+                return date + ":00";  // Add seconds as 00
+            }
+            // Return the date as is if it's already in the correct format
+            return date;
+        }
+        return "";
     }
 }

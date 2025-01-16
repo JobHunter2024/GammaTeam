@@ -1,4 +1,4 @@
-package com.jobhunter24.queryingapi.service;
+package com.jobhunter24.queryingapi.api.service;
 
 import ch.qos.logback.classic.Logger;
 import com.jobhunter24.queryingapi.QueryingApiApplication;

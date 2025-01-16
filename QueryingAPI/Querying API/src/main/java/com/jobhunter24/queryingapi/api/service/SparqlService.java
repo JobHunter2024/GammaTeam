@@ -1,4 +1,4 @@
-package com.jobhunter24.queryingapi.service;
+package com.jobhunter24.queryingapi.api.service;
 
 import ch.qos.logback.classic.Logger;
 import com.jobhunter24.queryingapi.QueryingApiApplication;
@@ -10,21 +10,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SparqlService implements ISparqlService {
     @Value("${SPARQL_ENDPOINT}")
     private String sparqlEndpointUrl; // Replace with your SPARQL endpoint URL
 
+    @Value("${FUSEKI_USERNAME}")
+    private String username;
+
+    @Value("${FUSEKI_PASSWORD}")
+    private String password;
+
     private static final Logger logger = (Logger) LoggerFactory.getLogger(QueryingApiApplication.class);
 
     public List<Map<String, Object>> executeSparqlQuery(String queryString) {
 
-        QueryExecution qexec = QueryExecutionHTTP.service(sparqlEndpointUrl, queryString);
+        QueryExecution qexec = QueryExecutionHTTP.create()
+                .endpoint(sparqlEndpointUrl)
+                .query(queryString)
+                .httpHeader("Authorization", "Basic " + encodeCredentials(username, password))
+                .build();
         ResultSet results = qexec.execSelect();
         List<Map<String, Object>> resultList = new ArrayList<>();
 
@@ -51,5 +58,10 @@ public class SparqlService implements ISparqlService {
         }
 
         return resultList;
+    }
+
+    private String encodeCredentials(String username, String password) {
+        String credentials = username + ":" + password;
+        return Base64.getEncoder().encodeToString(credentials.getBytes());
     }
 }

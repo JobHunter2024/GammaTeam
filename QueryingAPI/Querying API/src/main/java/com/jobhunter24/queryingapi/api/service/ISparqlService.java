@@ -1,4 +1,4 @@
-package com.jobhunter24.queryingapi.service;
+package com.jobhunter24.queryingapi.api.service;
 
 import java.util.List;
 import java.util.Map;

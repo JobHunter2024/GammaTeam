@@ -1,4 +1,4 @@
-package com.jobhunter24.queryingapi.service;
+package com.jobhunter24.queryingapi.api.service;
 
 import com.jobhunter24.queryingapi.api.model.DataObject;
 import com.jobhunter24.queryingapi.api.model.Response;

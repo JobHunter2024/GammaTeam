@@ -13,6 +13,6 @@ import java.util.Map;
 public class DataObject {
     public String subject;
     public List<String> instances;
-    public Map<String, String> dataProperties;
+    public Map<String, Object> dataProperties;
     public Map<String, Object> objectProperties;
 }

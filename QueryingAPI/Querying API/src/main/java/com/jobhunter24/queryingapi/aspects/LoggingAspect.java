@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class LoggingAspect {
     private static final Logger logger = (Logger) LoggerFactory.getLogger(LoggingAspect.class.getName());
 
-    @Around("execution(* com.jobhunter24.queryingapi.service.*.*(..))")
+    @Around("execution(* com.jobhunter24.queryingapi.api.service.*.*(..))")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
         logger.info("Method " + joinPoint.getSignature() + " called with args: " + Arrays.toString(joinPoint.getArgs()));
