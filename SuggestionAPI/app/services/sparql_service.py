@@ -1,4 +1,5 @@
 import requests
+from app.exceptions.exception_handler import BadRequestException
 
 
 def call_external_api(endpoint, namespace, iri):
@@ -15,7 +16,7 @@ def call_external_api(endpoint, namespace, iri):
 
         return response.json()
     except requests.RequestException as e:
-        return {'error': str(e)}
+        raise BadRequestException(str(e))
 
 
 def generate_sparql_query(iri, namespace):

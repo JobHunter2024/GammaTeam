@@ -1,14 +1,14 @@
 import pytest
 from flask import Flask
-from app.routes.routes import main_bp
-from app.services.services import call_external_api
+from app.routes.sparql_query_controller import sparql_query_bp
+from app.services.sparql_service import call_external_api
 
 
 @pytest.fixture
 def client(mocker):
     """Setup Flask test client and mock external API."""
     app = Flask(__name__)
-    app.register_blueprint(main_bp)
+    app.register_blueprint(sparql_query_bp)
 
     mocker.patch("app.services.services.call_external_api", return_value={"results": "mocked_response"})
 
