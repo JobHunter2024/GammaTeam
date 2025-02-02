@@ -39,23 +39,28 @@ def generate_suggestion_sparql_query(iri, namespace):
     return f"""
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-        SELECT DISTINCT ?node
+        SELECT DISTINCT ?node ?relation ?intermediateNode ?relationIntermediate
         WHERE {{
           {{
-            ?node ?relation <{iri}> .
+            ?node ?relation <{iri}> .  
             ?node a ?type .
             ?type rdfs:subClassOf* <{namespace}TechnicalSkill> .
             BIND(<{iri}> AS ?origin)
+            BIND(?node AS ?intermediateNode)
+            BIND(?relation AS ?relationIntermediate)  # If direct, relation and intermediateRelation are the same
           }}
           UNION
           {{
-            ?intermediateNode ?relationIntermediate <{iri}> .
+            ?intermediateNode ?relationIntermediate <{iri}> .  
             ?intermediateNode a ?typeIntermediate .
             ?typeIntermediate rdfs:subClassOf* <{namespace}TechnicalSkill> .
-            ?node ?relation ?intermediateNode .
+
+            ?node ?relation ?intermediateNode .  
             ?node a ?type .
             ?type rdfs:subClassOf* <{namespace}TechnicalSkill> .
+
             FILTER(?node != <{iri}>) 
           }}
         }}
-        """
+    """
+

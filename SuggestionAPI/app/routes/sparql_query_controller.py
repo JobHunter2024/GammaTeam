@@ -82,17 +82,30 @@ def forward_data():
     ],
     "responses": {
         200: {
-            "description": "List of suggested technologies based on input.",
+            "description": "A dictionary mapping each input technology to its related technologies and their relations.",
             "schema": {
                 "type": "object",
-                "properties": {
-                    "technologies": {
-                        "type": "array",
-                        "items": {"type": "string"},
-                        "example": [
-                            "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Python",
-                            "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Java"
-                        ]
+                "example": {
+                    "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Java": {
+                        "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Hibernate": {
+                            "relations": [
+                                "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#programmedIn"
+                            ]
+                        }
+                    },
+                    "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Python": {
+                        "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Django": {
+                            "relations": [
+                                "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#programmedIn"
+                            ]
+                        }
+                    },
+                    "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#React": {
+                        "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#Next.js": {
+                            "relations": [
+                                "http://www.semanticweb.org/ana/ontologies/2024/10/JobHunterOntology#influencedBy"
+                            ]
+                        }
                     }
                 }
             }
@@ -102,7 +115,10 @@ def forward_data():
             "schema": {
                 "type": "object",
                 "properties": {
-                    "error": {"type": "string", "example": "Technologies parameter is required in request body"}
+                    "error": {
+                        "type": "string",
+                        "example": "Technologies parameter is required in request body"
+                    }
                 }
             }
         }
