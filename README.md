@@ -1,216 +1,156 @@
-<!-- Table of Contents -->
-# Table of Contents
+# 🏹 JobHunter
+
+
+## 📔 Table of Contents
 
 - [About the Project](#about-the-project)
-  * [Screenshots](#screenshots)
-  * [Tech Stack](#tech-stack)
-  * [Features](#features)
-  * [Color Reference](#color-reference)
-  * [Environment Variables](#environment-variables)
+- [Screenshots](#screenshots)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Environment Variables](#environment-variables)
 - [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-  * [Running Tests](#running-tests)
-  * [Run Locally](#run-locally)
-  * [Deployment](#deployment)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Run Locally](#run-locally)
+  - [Deployment](#deployment)
 - [Usage](#usage)
-- [Roadmap](#roadmap)
-- [FAQ](#faq)
-- [License](#license)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
-  
 
-<!-- About the Project -->
-## About the Project
+---
 
+## 🌟 About the Project
 
-<!-- Screenshots -->
-### Screenshots
+A smart web application that helps users track IT job market trends by aggregating job offers, classifying them semantically, and providing insights based on current demands.
 
-<div align="center"> 
-  <img src="https://placehold.co/600x400?text=Your+Screenshot+here" alt="screenshot" />
-</div>
+---
 
+## 📷 Screenshots
 
-<!-- TechStack -->
-### Tech Stack
+![Screenshot](https://your-screenshot-url.com)
 
-<details>
-  <summary>Client</summary>
-  <ul>
-    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
-    <li><a href="https://reactjs.org/">React.js</a></li>
-    <li><a href="https://react-bootstrap.netlify.app">React-Bootstrap</a></li>
-  </ul>
-</details>
+---
 
-<details>
-  <summary>Server</summary>
-  <ul>
-    <li><a href="https://spring.io/projects/spring-boot/">Java Spring Boot</a></li>
-    <li><a href="https://docs.python.org/3/">Python 3</a></li>
-  </ul>
-</details>
+## 👾 Tech Stack
 
-<details>
-<summary>Database</summary>
-  <ul>
-    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
-    <li><a href="https://jena.apache.org/documentation/fuseki2">Apache Jena Fuseki Server</a></li>
-  </ul>
-</details>
+**Frontend:**
+- ⚛️ **React** - The main UI library.
+- 🛣 **React Router** - Handles page navigation.
+- 🎨 **Material UI** - Predefined UI components.
+- 🎭 **Bootstrap & React Bootstrap** - Responsive styling and components.
+- 🌐 **Axios** - HTTP request handling.
+- ⚡ **Vite** - Fast development build tool.
+- 🏗 **TypeScript** - Type-safe and scalable code.
 
-<details>
-<summary>DevOps</summary>
-  <ul>
-    <li><a href="">Non</a></li>
-  </ul>
-</details>
+**Back-end:**
 
-<!-- Features -->
-### Features
+- 🔥 **Apache Jena Fuseki** - A SPARQL server used to store, query, and manage RDF data for semantic reasoning.
+- 🐍 **Flask** - Lightweight and efficient Python web framework for building APIs.
+- 📜 **SPARQLWrapper** - Used for querying RDF data from **Wikidata** and other semantic sources.
+- 📌 **SPARQL & RDF** - Used to retrieve and manipulate **semantic data** from the ontology.
+- ⚙️ **Java & Spring Boot** - Provides a scalable backend service for managing and processing job-related data.g.
+- 🗃 **PostgreSQL** - The relational database management system used for storing structured data.
+- 📝 **Flask-Swagger** - API documentation and interactive testing.
+
+---
+
+## 🎯 Features
 
 - Feature 1
 - Feature 2
 - Feature 3
 
-<!-- Color Reference -->
-### Color Reference
+---
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#222831](https://via.placeholder.com/10/222831?text=+) #222831 |
-| Secondary Color | ![#393E46](https://via.placeholder.com/10/393E46?text=+) #393E46 |
-| Accent Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+## 🔑 Environment Variables
 
+To run this project, you will need to add the following environment variables to your `.env` file:
 
-<!-- Env Variables -->
-### Environment Variables
+```env
+API_KEY=your-api-key
+ANOTHER_API_KEY=another-key
+```
 
-To run this project, you will need to add the following environment variables to your .env file
+---
 
-`API_KEY`
+## 🧰 Getting Started
 
-`ANOTHER_API_KEY`
-
-<!-- Getting Started -->
-## Getting Started
-
-<!-- Prerequisites -->
 ### Prerequisites
 
-This project uses Yarn as package manager
+Ensure you have Node.js installed.
+This project uses npm as a package manager:
 
 ```bash
- npm install --global yarn
+npm install -g <package-name>
 ```
 
-<!-- Installation -->
 ### Installation
 
-Install my-project with npm
+Install my-project with npm:
 
 ```bash
-  yarn install my-project
-  cd my-project
-```
-   
-<!-- Running Tests -->
-### Running Tests
-
-To run tests, run the following command
-
-```bash
-  yarn test test
+npm install my-project
+cd my-project
 ```
 
-<!-- Run Locally -->
 ### Run Locally
 
-Clone the project
+Clone the project:
 
 ```bash
-  git clone https://github.com/Louis3797/awesome-readme-template.git
+git clone https://github.com/JobHunter2024/GammaTeam.git
 ```
 
-Go to the project directory
+Navigate to the project directory:
 
 ```bash
-  cd my-project
+cd my-project
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
-  yarn install
+npm install
 ```
 
-Start the server
+Start the server:
 
 ```bash
-  yarn start
+npm run dev
 ```
 
-
-<!-- Deployment -->
 ### Deployment
 
-To deploy this project run
+To deploy this project:
 
 ```bash
-  yarn deploy
+npm run deploy
 ```
 
+---
 
-<!-- Usage -->
-## Usage
+## 👀 Usage
 
-Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
+Use this space to tell more about your project and how it can be used. Include additional screenshots, code samples, demos, or links to other resources.
 
-
-```javascript
-import Component from 'my-project'
+```jsx
+import Component from 'my-project';
 
 function App() {
-  return <Component />
+  return <Component />;
 }
 ```
 
-<!-- Roadmap -->
-## Roadmap
+---
 
-* [x] Todo 1
-* [ ] Todo 2
+## 🤝 Contact
 
-<!-- FAQ -->
-## FAQ
+* Harton Amalia MSD1
+* Habasescu Andrei MSD1
 
-- Question 1
+Project Link: [https://github.com/JobHunter2024/GammaTeam](https://github.com/JobHunter2024/GammaTeam)
 
-  + Answer 1
+---
 
-- Question 2
+## 💎 Acknowledgements
 
-  + Answer 2
-
-
-<!-- License -->
-## License
-
-Distributed under the no License. See LICENSE.txt for more information.
-
-<!-- Contact -->
-## Contact
-
-Project Link: [https://github.com/JobHunter2024](https://github.com/JobHunter2024)
-
-
-<!-- Acknowledgments -->
-## Acknowledgements
-
-Use this section to mention useful resources and libraries that you have used in your projects.
-
- - [Busaco WADE](https://profs.info.uaic.ro/sabin.buraga/teach/courses/wade/)
- - [Awesome README Template]([https://github.com/matiassingers/awesome-readme](https://github.com/Louis3797/awesome-readme-template))
