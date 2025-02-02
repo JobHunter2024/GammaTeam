@@ -1,5 +1,5 @@
 import requests
-from app.services.sparql_service import call_external_api, generate_sparql_query
+from app.services.sparql_service import call_external_api, generate_suggestion_sparql_query
 
 
 def test_call_external_api_success(mocker):
@@ -20,7 +20,7 @@ def test_call_external_api_success(mocker):
         endpoint,
         json={
             "namespace": namespace,
-            "query": generate_sparql_query(iri, namespace)
+            "query": generate_suggestion_sparql_query(iri, namespace)
         },
         headers={
             "Accept": "application/sparql-results+json",
@@ -75,6 +75,6 @@ def test_generate_sparql_query():
     }}
     """
 
-    query = generate_sparql_query(iri, namespace)
+    query = generate_suggestion_sparql_query(iri, namespace)
 
     assert query.strip() == expected_query.strip()
