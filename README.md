@@ -77,14 +77,23 @@ ANOTHER_API_KEY=another-key
 
 ### Prerequisites
 
-Ensure you have Node.js installed.
-This project uses npm as a package manager:
+This project uses Node.js npm as package manager for the Frontend Part
 
-```bash
-npm install -g <package-name>
-```
+* [Node.js Download Page](https://nodejs.org/en/download)
+
+It also requires Java 17 JDK as well as a compatible version of Maven 3.9.9
+ 
+* [Java 17 Archive Downloads](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+* [Maven Download Page](https://maven.apache.org/download.cgi)
+* [Maven Configuration Guide](https://phoenixnap.com/kb/install-maven-windows)
+
+Lastly we should install Python 3.11 as well as 3.12
+
+* [Python 3.11 Download Page](https://www.python.org/downloads/release/python-3110/)
+* [Python 3.12 Download Page](https://www.python.org/downloads/release/python-3120/)
 
 ### Installation
+
 
 Install my-project with npm:
 
