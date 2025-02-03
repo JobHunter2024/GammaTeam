@@ -97,12 +97,31 @@ Lastly we should install Python 3.11 as well as 3.12
 ### Installation
 
 
-Install my-project with npm:
+#### Configuring Frontend :
+
+Clone the project from :
+
+We recommend opening the cloned project root directory within Visual Studio Code and running in Command Line the following:
 
 ```bash
-npm install my-project
-cd my-project
+npm install
 ```
+
+#### Java Backend APIs 
+* Querying API (Gamma team Repository)
+* Standard Queries API (Gamma Team Repository)
+* Authentication API (Authentication API Repository)
+* User Data Management API (User Data Management API Repository)
+
+For all of the above one must clone the project and open the project via IntelliJ Community Edition (recommended).
+
+For IntelliJ ensure that the Lombok IDE plugin is installed.
+
+Afterwards we must add the application.properties in each of the services :
+
+Querying API && Standard Queries API
+
+#### Python Backend APIs
 
 ### Run Locally
 
