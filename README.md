@@ -35,7 +35,7 @@ Our team was responsible of smart querying, suggestions, and query standardizati
 ## Resources (Deliverables)
 
 * [Technical Report](https://docs.google.com/document/d/10gybDoKLvTFstlCbGf6qe2ru0_LxUlQknnEn_zBr910)
-* [OpenAPI Specification Directory](https://drive.google.com/drive/folders/1gZzt5jbP03676OKnPIoqevOhpnoEgFug)
+* [OpenAPI Specification Directory](https://drive.google.com/drive/folders/1DWb2rvJFamJbu9KCUMTMw-WkkJexBfDa)
 * Demo Video
 
 ## 👾 Tech Stack
