@@ -63,7 +63,6 @@ Our team was responsible of smart querying, suggestions, and query standardizati
 
 ## 🎯 Features
 
-- Feature 1
   
 - **SuggestionAPI**: The Suggestion API is a microservice that identifies technologies or skills related to a specified technology by leveraging SPARQL queries against a defined ontology. It retrieves both direct and intermediate relationships within two connection nodes. The API has been enhanced to include an active job validation step, ensuring that suggested technologies are relevant based on their association with currently available job offers. By filtering out technologies that are only linked to removed job offers, this API provides more accurate and market-relevant technology recommendations.
   
@@ -147,6 +146,7 @@ jwt.issuer=jobhunter2024
 * WikiLink API ( WikiLinkAPI Repository)
 
 For all of the above one must clone the project and open the project via **PyCharm Community Edition** (recommended).
+
 Afterwards we must add the application.properties in each of the service:
 
 1. Suggestion API && Wiki Link API
@@ -155,7 +155,7 @@ Afterwards we must add the application.properties in each of the service:
 PAPERTRAIL_HOST = your_papertrail_host
 PAPERTRAIL_PORT = your_papertrail_port
 WIKIDATA_ENDPOINT=https://query.wikidata.org/sparql
-``
+```
 
 ---
 
