@@ -143,6 +143,19 @@ jwt.issuer=jobhunter2024
 
 #### Python Backend APIs
 
+* Suggestion API (Gamma team Repository)
+* WikiLink API ( WikiLinkAPI Repository)
+
+For all of the above one must clone the project and open the project via **PyCharm Community Edition** (recommended).
+Afterwards we must add the application.properties in each of the service:
+
+1. Suggestion API && Wiki Link API
+
+```properties
+PAPERTRAIL_HOST = your_papertrail_host
+PAPERTRAIL_PORT = your_papertrail_port
+WIKIDATA_ENDPOINT=https://query.wikidata.org/sparql
+``
 
 ---
 
