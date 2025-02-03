@@ -31,6 +31,9 @@ A smart web application that helps users track IT job market trends by aggregati
 
 ---
 
+## Resources
+* 
+
 ## 👾 Tech Stack
 
 **Frontend:**
@@ -113,49 +116,40 @@ npm install
 * Authentication API (Authentication API Repository)
 * User Data Management API (User Data Management API Repository)
 
-For all of the above one must clone the project and open the project via IntelliJ Community Edition (recommended).
+For all of the above one must clone the project and open the project via **IntelliJ Community Edition** (recommended).
 
 For IntelliJ ensure that the Lombok IDE plugin is installed.
 
 Afterwards we must add the application.properties in each of the services :
 
-Querying API && Standard Queries API
+1. Querying API && Standard Queries API
+
+```properties
+server.port=8888
+PAPERTRAIL_HOST = your_papertrail_host
+PAPERTRAIL_PORT = your_papertrail_port
+SPARQL_ENDPOINT = your_apache_fuseki_dataset_address
+ONTOLOGY_URI_REGEX = http://www\.semanticweb\.org/ana/ontologies/[A-Za-z0-9/_#-.]+
+FUSEKI_USERNAME = username_if_applicable
+FUSEKI_PASSWORD = password_if_applicable
+```
+
+2. Authentication API && User Data Management API
+
+```properties
+spring.datasource.url=jdbc:postgresql://{address_of_your_postgres_db}:5432/JobHunter
+spring.datasource.username=your_db_user
+spring.datasource.password=your_db_password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+jwt.secret=your_JWT_secret
+jwt.expiration=3600000
+jwt.issuer=jobhunter2024
+```
 
 #### Python Backend APIs
 
-### Run Locally
-
-Clone the project:
-
-```bash
-git clone https://github.com/JobHunter2024/GammaTeam.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd my-project
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the server:
-
-```bash
-npm run dev
-```
-
-### Deployment
-
-To deploy this project:
-
-```bash
-npm run deploy
-```
 
 ---
 
@@ -184,3 +178,8 @@ Project Link: [https://github.com/JobHunter2024/GammaTeam](https://github.com/Jo
 
 ## 💎 Acknowledgements
 
+[Sabin Buraga WADE](https://profs.info.uaic.ro/sabin.buraga/teach/courses/wade/index.html)
+[Iftene Adrian TAIP](https://edu.info.uaic.ro/tehnici-avansate-ingineria-programarii/)
+[Markdown Template](https://github.com/Louis3797/awesome-readme-template)
+[Alpha Team - Job Scraping](https://github.com/JobHunter2024/AlphaTeam)
+[Beta Team - Data Processing](https://github.com/JobHunter2024/BetaTeam)
