@@ -157,6 +157,113 @@ PAPERTRAIL_PORT = your_papertrail_port
 WIKIDATA_ENDPOINT=https://query.wikidata.org/sparql
 ```
 
+# Python Virtual Environment Setup
+
+This guide explains how to create a virtual environment using **Python 3.11**, install dependencies from a `requirements.txt` file, and verify the installation.
+
+---
+
+## 🔧 **Prerequisites**
+Ensure that you have **Python 3.11** installed. Check your Python version by running:
+
+```bash
+python3 --version
+```
+
+If you do not have Python 3.11 installed, download it from [python.org](https://www.python.org/downloads/).
+
+---
+
+## 🚀 **Step 1: Create a Virtual Environment**
+To create a virtual environment, run the following command:
+
+```bash
+python3.11 -m venv venv
+```
+
+This will create a directory named `venv` containing the virtual environment files.
+
+---
+
+## ⚡ **Step 2: Activate the Virtual Environment**
+After creating the virtual environment, activate it:
+
+- **Windows (Command Prompt / PowerShell):**
+  ```powershell
+  venv\Scripts\activate
+  ```
+- **macOS/Linux:**
+  ```bash
+  source venv/bin/activate
+  ```
+
+Once activated, you should see `(venv)` at the beginning of your terminal prompt.
+
+---
+
+## 📦 **Step 3: Install Dependencies**
+
+### 📌 **Option 1: Using an Existing `requirements.txt` File**
+If you already have a `requirements.txt` file, install the dependencies with:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 📌 **Option 2: Creating a `requirements.txt` File and Installing**
+If you don’t have a `requirements.txt` file, create one using the following command:
+
+```bash
+echo "aniso8601==9.0.1
+blinker==1.8.2
+click==8.1.7
+colorama==0.4.6
+Flask==3.0.3
+Flask-RESTful==0.3.10
+Flask-SQLAlchemy==3.1.1
+greenlet==3.1.1
+iniconfig==2.0.0
+itsdangerous==2.2.0
+Jinja2==3.1.4
+MarkupSafe==3.0.2
+packaging==24.1
+pluggy==1.5.0
+pytest==8.3.3
+python-dotenv==1.0.1
+pytz==2024.2
+six==1.16.0
+SQLAlchemy==2.0.36
+typing_extensions==4.12.2
+Werkzeug==3.0.6
+transformers
+sentence-transformers
+torch
+python-decouple
+flask-cors
+flasgger
+aspectlib
+sparqlwrapper" > requirements.txt
+```
+
+Then install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## ✅ **Step 4: Verify Installation**
+To check if all dependencies were installed correctly, run:
+
+```bash
+pip freeze
+```
+
+This will list all installed packages and their versions.
+
+---
+
 ---
 
 ## 👀 Usage
