@@ -1,4 +1,4 @@
-# 🏹 JobHunter
+# 🏹 JobHunter 2025
 
 
 ## 📔 Table of Contents
@@ -63,11 +63,21 @@ Our team was responsible of smart querying, suggestions, and query standardizati
 
 ## 🎯 Features
 
+### Harton Amalia
   
-- **SuggestionAPI**: The Suggestion API is a microservice that identifies technologies or skills related to a specified technology by leveraging SPARQL queries against a defined ontology. It retrieves both direct and intermediate relationships within two connection nodes. The API has been enhanced to include an active job validation step, ensuring that suggested technologies are relevant based on their association with currently available job offers. By filtering out technologies that are only linked to removed job offers, this API provides more accurate and market-relevant technology recommendations.
+- **Suggestion API**: The Suggestion API is a microservice that identifies technologies or skills related to a specified technology by leveraging SPARQL queries against a defined ontology. It retrieves both direct and intermediate relationships within two connection nodes. The API has been enhanced to include an active job validation step, ensuring that suggested technologies are relevant based on their association with currently available job offers. By filtering out technologies that are only linked to removed job offers, this API provides more accurate and market-relevant technology recommendations.
   
-- **WikiLinkAPI**: This API retrieves information about a given technology or entity based on its ontology IRI. It queries a SPARQL endpoint to fetch the corresponding Wikidata URI, then retrieves additional metadata such as the official logo and Wikipedia link from Wikidata. If a Wikipedia link is found, it also fetches a short description of the entity from Wikipedia. This allows users to get relevant contextual information about technologies, programming languages, or other entities referenced in the ontology.
+- **Wiki Link API**: This API retrieves information about a given technology or entity based on its ontology IRI. It queries a SPARQL endpoint to fetch the corresponding Wikidata URI, then retrieves additional metadata such as the official logo and Wikipedia link from Wikidata. If a Wikipedia link is found, it also fetches a short description of the entity from Wikipedia. This allows users to get relevant contextual information about technologies, programming languages, or other entities referenced in the ontology.
 
+### Habasescu Andrei
+
+- **Standard Queries API**: An API which houses a set of generic and preset queries that help retrieve the details of any entity from the SPARQL endpoint of our Apache Fuseki server, which in turn contains an ontology in RDF format.
+
+- **Querying API**: An API which dynamically generates SPARQL queries based on a specific Data Object structure which is intended to allow users to build their own queries with the help of out frontend implementation.
+
+- **Authentication API**: Standard user entity management API offering a CRUD as well as proper authentication methods Register/Login. The API works based on secret signed JWT tokens, the API itself exerting Role Based Access Control via the Java Security Filter Chain.
+
+- **User Data Management API**: API meant to allow manipulation of user data, such as favourite technologies or companies, mainly used for frontend interaction enrichment.
 ---
 
 ## 🧰 Getting Started
@@ -280,8 +290,8 @@ function App() {
 
 ## 🤝 Contact
 
-* Harton Amalia MSD1, email: [hartonamalia99@yahoo.com](mailto:hartonamalia99@yahoo.com)
-* Habasescu Andrei MSD1
+* Harton Amalia MSD1 - [hartonamalia99@yahoo.com](mailto:hartonamalia99@yahoo.com)
+* Habasescu Andrei MSD1 - [habasescuandrei1234@gmail.com](mailto:habasescuandrei1234@gmail.com) 
 
 Project Link: [https://github.com/JobHunter2024/GammaTeam](https://github.com/JobHunter2024/GammaTeam)
 
