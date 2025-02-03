@@ -280,7 +280,7 @@ function App() {
 
 ## 🤝 Contact
 
-* Harton Amalia MSD1 [hartonamalia99@yahoo.com](mailto:hartonamalia99@yahoo.com)
+* Harton Amalia MSD1, email: [hartonamalia99@yahoo.com](mailto:hartonamalia99@yahoo.com)
 * Habasescu Andrei MSD1
 
 Project Link: [https://github.com/JobHunter2024/GammaTeam](https://github.com/JobHunter2024/GammaTeam)
