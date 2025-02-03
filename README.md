@@ -21,8 +21,9 @@
 
 ## 🌟 About the Project
 
-A smart web application that helps users track IT job market trends by aggregating job offers, classifying them semantically, and providing insights based on current demands.
+A web 3.0 (semantic web) base application implementing the conceptsof open data, linked data and HATEOAS with live data from job offer boards. The goal of the project is to offer users an intuitive tool that would allow for advanced querying, statistical charting as well as offer classification and archival in order to monitor the activity of the IT Market.
 
+Our team was responsible of smart querying, suggestions, and query standardization to allow for intuitive API usage in the context of a web application.
 ---
 
 ## 📷 Screenshots
@@ -31,8 +32,11 @@ A smart web application that helps users track IT job market trends by aggregati
 
 ---
 
-## Resources
-* 
+## Resources (Deliverables)
+
+* [Technical Report](https://docs.google.com/document/d/10gybDoKLvTFstlCbGf6qe2ru0_LxUlQknnEn_zBr910)
+* OpenAPI Specification Directory
+* Demo Video
 
 ## 👾 Tech Stack
 
@@ -64,17 +68,6 @@ A smart web application that helps users track IT job market trends by aggregati
 - **SuggestionAPI**: The Suggestion API is a microservice that identifies technologies or skills related to a specified technology by leveraging SPARQL queries against a defined ontology. It retrieves both direct and intermediate relationships within two connection nodes. The API has been enhanced to include an active job validation step, ensuring that suggested technologies are relevant based on their association with currently available job offers. By filtering out technologies that are only linked to removed job offers, this API provides more accurate and market-relevant technology recommendations.
   
 - **WikiLinkAPI**: This API retrieves information about a given technology or entity based on its ontology IRI. It queries a SPARQL endpoint to fetch the corresponding Wikidata URI, then retrieves additional metadata such as the official logo and Wikipedia link from Wikidata. If a Wikipedia link is found, it also fetches a short description of the entity from Wikipedia. This allows users to get relevant contextual information about technologies, programming languages, or other entities referenced in the ontology.
-
----
-
-## 🔑 Environment Variables
-
-To run this project, you will need to add the following environment variables to your `.env` file:
-
-```env
-API_KEY=your-api-key
-ANOTHER_API_KEY=another-key
-```
 
 ---
 
@@ -179,7 +172,15 @@ Project Link: [https://github.com/JobHunter2024/GammaTeam](https://github.com/Jo
 ## 💎 Acknowledgements
 
 [Sabin Buraga WADE](https://profs.info.uaic.ro/sabin.buraga/teach/courses/wade/index.html)
+
+
 [Iftene Adrian TAIP](https://edu.info.uaic.ro/tehnici-avansate-ingineria-programarii/)
+
+
 [Markdown Template](https://github.com/Louis3797/awesome-readme-template)
+
+
 [Alpha Team - Job Scraping](https://github.com/JobHunter2024/AlphaTeam)
+
+
 [Beta Team - Data Processing](https://github.com/JobHunter2024/BetaTeam)
