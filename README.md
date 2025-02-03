@@ -113,10 +113,10 @@ npm install
 ```
 
 #### Java Backend APIs 
-* Querying API (Gamma team Repository)
-* Standard Queries API (Gamma Team Repository)
-* Authentication API (Authentication API Repository)
-* User Data Management API (User Data Management API Repository)
+* [Querying API (Gamma team Repository)](https://github.com/JobHunter2024/GammaTeam)
+* [Standard Queries API (Gamma Team Repository)](https://github.com/JobHunter2024/GammaTeam)
+* [Authentication API (Authentication API Repository)](https://github.com/JobHunter2024/AuthenticationAPI)
+* [User Data Management API (User Data Management API Repository)](https://github.com/JobHunter2024/UserDataManagementAPI)
 
 For all of the above one must clone the project and open the project via **IntelliJ Community Edition** (recommended).
 
