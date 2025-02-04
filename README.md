@@ -24,6 +24,8 @@
 A web 3.0 (semantic web) base application implementing the conceptsof open data, linked data and HATEOAS with live data from job offer boards. The goal of the project is to offer users an intuitive tool that would allow for advanced querying, statistical charting as well as offer classification and archival in order to monitor the activity of the IT Market.
 
 Our team was responsible of smart querying, suggestions, and query standardization to allow for intuitive API usage in the context of a web application.
+
+This #project is part of a larger collaborative initiative that we built together with our colleagues for the #Wade class at Alexandru Ioan Cuza University of Iași (#infoiasi). As part of our #Web Development course, we combined our skills and ideas to create a cutting-edge #web application that addresses real-world challenges in the job listing domain. 
 ---
 
 ## 📷 Screenshots
