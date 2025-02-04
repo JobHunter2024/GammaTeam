@@ -4,15 +4,13 @@
 ## 📔 Table of Contents
 
 - [About the Project](#about-the-project)
-- [Screenshots](#screenshots)
+- 
+- [Resources](#resources)
 - [Tech Stack](#tech-stack)
 - [Features](#features)
 - [Environment Variables](#environment-variables)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Run Locally](#run-locally)
-  - [Deployment](#deployment)
+- [Getting Started](#getting-started) 
+- [Installation](#installation)
 - [Usage](#usage)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
@@ -25,12 +23,6 @@ A web 3.0 (semantic web) base application implementing the conceptsof open data,
 This **#project** is part of a larger collaborative initiative that we built together with our colleagues for the **#Wade** class at Alexandru Ioan Cuza University of Iași **(#infoiasi)**. As part of our **#Web Development** course, we combined our skills and ideas to create a cutting-edge **#web** application that addresses real-world challenges in the job listing domain. 
 
 **Our team was responsible of smart querying, suggestions, and query standardization to allow for intuitive API usage in the context of a web application.**
-
----
-
-## 📷 Screenshots
-
-![Screenshot](https://your-screenshot-url.com)
 
 ---
 
@@ -102,7 +94,6 @@ Lastly we should install Python 3.11 as well as 3.12
 * [Python 3.12 Download Page](https://www.python.org/downloads/release/python-3120/)
 
 ### Installation
-
 
 #### Configuring Frontend :
 
@@ -278,15 +269,17 @@ This will list all installed packages and their versions.
 
 ## 👀 Usage
 
-Use this space to tell more about your project and how it can be used. Include additional screenshots, code samples, demos, or links to other resources.
+In order to test our application one must run the following APIs
 
-```jsx
-import Component from 'my-project';
+* React Frontend
+* Authentication API
+* User Data Management API
+* Standard Queries API
+* Queries API
+* Suggestions API
+* Wiki Link API
 
-function App() {
-  return <Component />;
-}
-```
+Ensure that Fuseki Server is correctly configured and that you have supplied a valid PostgreSQL server address.
 
 ---
 
