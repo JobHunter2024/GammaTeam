@@ -4,7 +4,8 @@
 ## 📔 Table of Contents
 
 - [About the Project](#about-the-project)
-- 
+
+  
 - [Resources](#resources)
 - [Tech Stack](#tech-stack)
 - [Features](#features)
