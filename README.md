@@ -1,5 +1,6 @@
 # 🏹 JobHunter 2025
 
+\#wade \#infoiasi \#project \#web
 
 ## 📔 Table of Contents
 
